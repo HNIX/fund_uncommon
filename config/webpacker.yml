@@ -30,7 +30,7 @@ development:
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
     # Inline should be set to true if using HMR; it inserts a script to take care of live reloading
-    inline: true
+    inline: false
     # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
     overlay: true
     # Should we use gzip compression?
@@ -46,7 +46,7 @@ development:
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
-      ignored: '**/node_modules/**'
+      ignored: ['**/public/packs/**', '**/node_modules/**']
 
 test:
   <<: *default

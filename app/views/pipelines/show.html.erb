@@ -1,0 +1,24 @@
+<div class="container mx-auto my-8 px-4">
+
+  <div class="max-w-5xl mx-auto">
+    <%= render "pipelines/page_header"%>
+
+    <%= render "pipelines/stat_cards"%>
+
+    <div class="flex justify-between">
+      <div class="bg-white rounded shadow p-8 mb-8 w-1/2">
+        
+        <%= render "pipelines/source_list", sources: @pipeline.sources %>
+      </div>
+      <div class="bg-white rounded shadow p-8 mb-8 w-1/2 ml-6">
+        
+        <%= render "pipelines/campaign_list" %>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded shadow p-8 mb-8">
+
+      <%= render "pipelines/lead_list", sources: @pipeline.sources %>
+    </div>
+  </div>
+</div>

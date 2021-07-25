@@ -1,0 +1,22 @@
+<div class="col-span-5 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative group hidden" data-target="inline-edit.form">
+  <%= form_with(model: field, url: [source.pipeline, source, source.field_set, field], id: "event-field-form-#{field.id}", html: {data: {:remote=>true}}) do |form| %>
+
+    <% if field.errors.any? %>
+        <div id="error_explanation">
+        <h2><%= pluralize(field.errors.count, "error") %> prohibited this field from being saved:</h2>
+
+        <ul>
+        <% field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+        </ul>
+        </div>
+    <% end %>
+        <div>
+            <%= form.select(:target_field_name, options_for_select(EventField::OPTIONS, :selected => form.object.target_field_name), { :prompt => true, :include_blank => true }, { :class => "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" } ) %>
+
+        </div>
+
+        
+<% end %>
+</div>

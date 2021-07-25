@@ -1,0 +1,74 @@
+<%= form_with(model: [@pipeline, source], local: true) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+    <div class="space-y-6 mb-6">
+      <div>
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+            <%= form.text_field :name, class: "fblock w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border-gray-300 rounded-md" %>
+        </div> 
+      </div>
+
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700">
+          Description
+        </label>
+        <div class="mt-1">
+            <%= form.text_area :desc, class: "block w-full shadow-sm focus:ring-sky-500 focus:border-sky-500 sm:text-sm border border-gray-300 rounded-md" %>
+        </div> 
+      </div>
+
+      <div>
+        <label for="location" class="block text-sm font-medium text-gray-700">Source Type</label>
+        
+        <%= form.select(:source_type, options_for_select(Source::OPTIONS), { :prompt => true }, { :class => "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" } ) %>
+      </div>
+
+      </div>
+
+      <fieldset>
+        <legend class="text-sm font-medium text-gray-900">
+          Privacy
+        </legend>
+
+        <div class="mt-1 bg-white rounded-md shadow-sm -space-y-px">
+
+          <!-- Checked: "bg-sky-50 border-sky-200 z-10", Not Checked: "border-gray-200" -->
+          <%= form.label :private, true, class: "border-gray-200 relative border p-4 flex cursor-pointer" do %>
+             <%= form.radio_button :private, true, :checked => true, class: "h-4 w-4 mt-0.5 cursor-pointer text-sky-600 border-gray-300 focus:ring-sky-500" %>
+             <div class="ml-3 flex flex-col">
+              <!-- Checked: "text-sky-900", Not Checked: "text-gray-900" -->
+              <span id="privacy-setting-1-label" class="text-gray-900 block text-sm font-medium">
+                Private to Pipeline Members
+              </span>
+              <!-- Checked: "text-sky-700", Not Checked: "text-gray-500" -->
+              <span id="privacy-setting-1-description" class="text-gray-500 block text-sm">
+                Only members of this pipeline would be able to access leads from this source
+              </span>
+            </div>
+          <% end %>
+          <!-- Checked: "bg-sky-50 border-sky-200 z-10", Not Checked: "border-gray-200" -->
+          <%= form.label :private, false, class: "border-gray-200 relative border p-4 flex cursor-pointer" do %>
+             <%= form.radio_button :private, false, class: "h-4 w-4 mt-0.5 cursor-pointer text-sky-600 border-gray-300 focus:ring-sky-500" %>
+             <div class="ml-3 flex flex-col">
+              <!-- Checked: "text-sky-900", Not Checked: "text-gray-900" -->
+              <span id="privacy-setting-2-label" class="text-gray-900 block text-sm font-medium">
+                Public
+              </span>
+              <!-- Checked: "text-sky-700", Not Checked: "text-gray-500" -->
+              <span id="privacy-setting-2-description" class="text-gray-500 block text-sm">
+                All buyers on the network will be able to access leads from this source
+              </span>
+            </div>
+          <% end %>
+
+      </fieldset>
+
+      <div class="form-group flex justify-between mt-6">
+        <%= link_to t("cancel"), pipeline_path(@pipeline), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        
+        <%= form.button class: "btn btn-primary" %>
+
+    </div>
+    </div>
+<% end %>

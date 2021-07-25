@@ -1,0 +1,24 @@
+<div id="restream_table" class="shadow overflow-hidden border-b border-gray-200 bg-white sm:rounded-lg">
+  <div class="border-b border-gray-200 bg-gray-50 shadow-b overflow-hidden divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-12 sm:gap-px">
+    <div class="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      IP Address
+    </div>
+    <div class="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Status
+    </div>
+
+    <div class="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Streamed At
+    </div>
+   
+    <div class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Action
+    </div>
+  </div>
+    <% events.order(:created_at).each do |event| %>
+        <% if event.stream_status == "streaming error" %>
+          <%= render "unprocessed_events/event_row", event: event %>
+        <% end %>
+    <% end %>
+  
+</div>

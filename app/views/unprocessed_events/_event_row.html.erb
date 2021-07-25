@@ -1,0 +1,40 @@
+<div id="<%= dom_id(event) %>" class="overflow-hidden divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-12 sm:gap-px sm:grid-flow-col auto-col-auto" data-controller="inline-edit">
+    <div class="col-span-3 px-6 py-4 flex whitespace-nowrap text-sm font-medium text-gray-900 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      <div class="ml-2 flex justify-start">
+        <span>
+            <%= event.remote_ip %> 
+        </span>
+      </div>
+    </div>
+    <div class="col-span-4 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      <div class="flex justify-start">
+        <span>
+            <%= event.stream_status %> <%= event.id %>
+        </span>
+      </div>
+    </div>
+    <div class="col-span-4 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      <div class="flex justify-start">
+        <span>
+            <%= event.created_at %> 
+        </span>
+      </div>
+    </div>
+   
+        <div class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500" data-target="inline-edit.button">
+        <%= link_to 'Restream', '#', :onclick => 'restream()' %>
+        <%= javascript_tag do %>
+            function restream() {
+                $.post('rest/source_webhooks#input', event.payload, function(data) {
+                    var output = data.result;
+                    /* output should be 150 if successful */
+                });
+            }
+        <% end %>
+        
+        </div>
+       
+</div>

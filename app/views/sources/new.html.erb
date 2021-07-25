@@ -1,0 +1,17 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-white rounded shadow p-8">
+      <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mb-6">
+        <div>
+          <h1 class="text-lg leading-6 font-medium text-gray-900">
+            Source Settings
+          </h1>
+          <p class="mt-1 text-sm text-gray-500">
+            Let’s get started by filling in the information below to create your new source.
+          </p>
+        </div>
+      </div>
+      <%= render "sources/form", source: @source %>
+    </div>
+  </div>
+</div>

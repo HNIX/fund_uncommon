@@ -1,0 +1,17 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: Ledger Inq.
+business_name: Ledger Inq.
+domain: example.com
+support_email: support@example.com
+default_from_email: Jumpstart <support@example.com>
+business_address: ''
+background_job_processor: sidekiq
+email_provider: ''
+personal_accounts: false
+livereload: true
+solargraph: false
+register_with_account: true
+payment_processors:
+- stripe
+multitenancy:
+- path

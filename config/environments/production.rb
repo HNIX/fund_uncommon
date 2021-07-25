@@ -111,4 +111,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.require_master_key = true
+  config.active_job.queue_adapter = :sidekiq
+
 end

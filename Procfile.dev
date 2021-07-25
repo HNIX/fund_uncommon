@@ -1,3 +1,6 @@
 web: bundle exec rails s
 webpack: bin/webpack-dev-server
 # docker: docker-compose up
+# guard: bundle exec guard
+worker: bundle exec sidekiq
+stripe: stripe listen --forward-to localhost:5000/webhooks/stripe

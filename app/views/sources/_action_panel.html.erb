@@ -1,0 +1,98 @@
+<!-- Actions panel -->
+          
+<% if @source.source_type == 'form' %>
+<div class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+  <div>
+    <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+      <!-- Heroicon name: outline/users -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      </svg>
+
+    </span>
+  </div>
+  <div class="mt-4">
+    <h3 class="text-lg font-medium">
+      <a href="#" class="focus:outline-none">
+        <!-- Extend touch target to entire panel -->
+        <span class="absolute inset-0" aria-hidden="true"></span>
+        Form Widget
+      </a>
+    </h3>
+    <p class="mt-2 text-sm text-gray-500">
+      Doloribus dolores nostrum quia qui natus officia quod et dolorem. 
+    </p>
+  </div>
+  <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+    </svg>
+  </span>
+</div>
+
+<% elsif @source.source_type == 'webhook' %>
+
+
+  <%= render 'sources/webhook_details' %>
+
+<% elsif @source.source_type == 'api' %>
+<div data-controller="modal">
+
+  <div class="sm:rounded-bl-lg relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500" data-action="click->modal#open">
+    <div>
+      <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </span>
+    </div>
+    <div class="mt-4">
+      <h3 class="text-lg font-medium">
+        <a href="#" class="focus:outline-none">
+          <!-- Extend touch target to entire panel -->
+          <span class="absolute inset-0" aria-hidden="true"></span>
+          API
+        </a>
+      </h3>
+      <p class="mt-2 text-sm text-gray-500">
+        Doloribus dolores nostrum quia qui natus officia quod et dolorem. 
+      </p>
+    </div>
+    <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+      </svg>
+    </span>
+  </div>
+</div>
+
+<% elsif @source.source_type == 'upload' %>
+<div class="rounded-bl-lg rounded-br-lg sm:rounded-bl-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+  <div>
+    <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+      </svg>
+    </span>
+  </div>
+  <div class="mt-4">
+    <h3 class="text-lg font-medium">
+      <a href="#" class="focus:outline-none">
+        <!-- Extend touch target to entire panel -->
+        <span class="absolute inset-0" aria-hidden="true"></span>
+        Direct Upload
+      </a>
+    </h3>
+    <p class="mt-2 text-sm text-gray-500">
+      Doloribus dolores nostrum quia qui natus officia quod et dolorem. 
+    </p>
+  </div>
+  <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+    </svg>
+  </span>
+</div>
+
+<% end %>
+      

@@ -1,0 +1,51 @@
+<tr class="bg-gray-50 hidden" id="<%= dom_id(field) %>" data-controller="inline-edit" data-target="nested.child">
+    <td class="flex px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+      <% (counter+1).times do %>
+
+      <% end %>
+      <div class="grid grid-flow-row grid-rows-2">
+       <div class="border-l border-b border-gray-900 h-4 w-4">
+       </div>
+       <div class="border-l border-gray-900 h-4">
+       </div>
+      </div>
+      <span class="p-1">
+        <%= field.field_name %>
+      </span>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= field.data_type %>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= field.example_value %>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-target="inline-edit.field" >
+    <%= field.target_field_name unless field.data_type == "parent" %>
+    </td>
+    <% unless field.data_type == "parent" %>
+      <%= render "event_fields/target_field_form", field: field, source: source %>
+    <% end %>
+
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" data-target="inline-edit.field" >
+      <%= field.target_data_type unless field.data_type == "parent" %>
+    </td>
+    <% if field.data_type == "parent" %>
+        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+          <span></span>
+        </td>
+    <% else %>
+        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-target="inline-edit.button">
+          <span class="text-indigo-600 hover:text-indigo-900" data-action="click->inline-edit#toggle">Map Field</span>
+        </td>
+        <td class="hidden px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-target="inline-edit.submit">
+          <input class="text-indigo-600 hover:text-indigo-900 bg-white" type="submit" value="Map Field" form="event-field-form-<%= field.id %>">
+        </td>
+    <% end %>
+</tr>
+
+<% field.sub_fields.each_with_index do |sub_field, index| %>
+    <% if index == 0 %>
+      <% counter +=1 %>
+    <% end %>
+    <%= render partial: "sub_event_fields/sub_event_field", locals: {field: sub_field, source: @source, index: index, counter: counter} %>
+<% end %>

@@ -1,0 +1,5 @@
+<% if @event_field.parent_field.present? %>
+document.querySelector("#<%= dom_id(@event_field) %>").outerHTML = "<%=j render 'event_fields/sub_field_row', field: @event_field, source: @source %>"
+<% else %>
+document.querySelector("#<%= dom_id(@event_field) %>").outerHTML = "<%=j render 'event_fields/field_row', field: @event_field, source: @source %>"
+<% end %>

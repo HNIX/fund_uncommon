@@ -1,0 +1,34 @@
+<div class="shadow overflow-hidden border-b border-gray-200 bg-white sm:rounded-lg">
+  <div class="border-b border-gray-200 bg-gray-50 shadow-b overflow-hidden divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-12 sm:gap-px">
+    <div class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Status
+    </div>
+    <div class="col-span-5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Field Name
+    </div>
+
+    <div class="col-span-5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Target Field Name
+    </div>
+   
+    <div class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider relative group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      Action
+    </div>
+  </div>
+  <% if field_set %>
+    <% field_set.event_fields.order(:field_name).each do |field| %>
+      <% if !field.parent_field.present? %>
+        <div data-controller="nested" aria-expanded="false">
+          <%= render "event_fields/field_row", field: field, source: @source %>
+          
+          <div class="hidden shadow-inner bg-gray-50" data-target="nested.child">
+            <% field.sub_fields.order(:field_name).each_with_index do |sub_field, index| %>
+                <%= render partial: "event_fields/sub_field_row", locals: { field: sub_field, source: @source, index: index, counter: 0} %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>  
+  
+</div>

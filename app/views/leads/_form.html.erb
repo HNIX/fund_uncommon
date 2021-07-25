@@ -1,0 +1,76 @@
+<%= form_with(model: lead) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address2 %>
+    <%= form.text_field :address2, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :city %>
+    <%= form.text_field :city, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address_state %>
+    <%= form.text_field :address_state, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :zip_code %>
+    <%= form.text_field :zip_code, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :source_id %>
+    <%= form.text_field :source_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :account_id %>
+    <%= form.text_field :account_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :marketing_accepted %>
+    <%= form.check_box :marketing_accepted, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group flex justify-between">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? %>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

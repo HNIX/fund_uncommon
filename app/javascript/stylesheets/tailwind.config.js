@@ -16,6 +16,7 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/ui'),
   ],
 
   // Purge unused TailwindCSS styles

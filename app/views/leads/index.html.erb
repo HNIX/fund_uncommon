@@ -1,0 +1,73 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Leads</h1>
+
+    <% if @leads.any? %>
+      <%= link_to t("shared.scaffold.new.title", model: "Lead"), new_lead_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @leads.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :first_name, "First name", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :last_name, "Last name", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :email, "Email", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :phone, "Phone", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :address, "Address", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :address2, "Address2", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :city, "City", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :address_state, "Address state", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :zip_code, "Zip code", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :user_id, "User", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :source_id, "Source", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :account_id, "Account", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @leads, :marketing_accepted, "Marketing accepted", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @leads.each do |lead| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= lead.first_name %></td>
+                      <td class="p-3"><%= lead.last_name %></td>
+                      <td class="p-3"><%= lead.email %></td>
+                      <td class="p-3"><%= lead.phone %></td>
+                      <td class="p-3"><%= lead.address %></td>
+                      <td class="p-3"><%= lead.address2 %></td>
+                      <td class="p-3"><%= lead.city %></td>
+                      <td class="p-3"><%= lead.address_state %></td>
+                      <td class="p-3"><%= lead.zip_code %></td>
+                      <td class="p-3"><%= lead.user_id %></td>
+                      <td class="p-3"><%= lead.source_id %></td>
+                      <td class="p-3"><%= lead.account_id %></td>
+                      <td class="p-3"><%= lead.marketing_accepted %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), lead, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Lead</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Lead"), new_lead_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

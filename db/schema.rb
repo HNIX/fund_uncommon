@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_211740) do
+ActiveRecord::Schema.define(version: 2021_07_22_010629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,50 @@ ActiveRecord::Schema.define(version: 2021_01_15_211740) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
+  create_table "event_fields", force: :cascade do |t|
+    t.string "field_name"
+    t.string "target_field_name"
+    t.string "target_data_type"
+    t.string "data_type"
+    t.string "example_value"
+    t.bigint "field_set_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_used_at"
+    t.bigint "parent_field_id"
+    t.index ["field_set_id"], name: "index_event_fields_on_field_set_id"
+    t.index ["parent_field_id"], name: "index_event_fields_on_parent_field_id"
+  end
+
+  create_table "field_sets", force: :cascade do |t|
+    t.bigint "source_id", null: false
+    t.string "source_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["source_id"], name: "index_field_sets_on_source_id"
+  end
+
+  create_table "leads", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.string "address2"
+    t.string "city"
+    t.string "address_state"
+    t.string "zip_code"
+    t.bigint "user_id", null: false
+    t.bigint "source_id", null: false
+    t.bigint "account_id", null: false
+    t.boolean "marketing_accepted"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_leads_on_account_id"
+    t.index ["source_id"], name: "index_leads_on_source_id"
+    t.index ["user_id"], name: "index_leads_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "recipient_type", null: false
@@ -172,6 +216,16 @@ ActiveRecord::Schema.define(version: 2021_01_15_211740) do
     t.jsonb "data"
   end
 
+  create_table "pipelines", force: :cascade do |t|
+    t.string "name"
+    t.bigint "account_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_pipelines_on_account_id"
+    t.index ["user_id"], name: "index_pipelines_on_user_id"
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string "name", null: false
     t.integer "amount", default: 0, null: false
@@ -180,6 +234,36 @@ ActiveRecord::Schema.define(version: 2021_01_15_211740) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "trial_period_days", default: 0
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.bigint "pipeline_id", null: false
+    t.string "url"
+    t.jsonb "state"
+    t.jsonb "intent"
+    t.jsonb "schema"
+    t.string "type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "desc"
+    t.string "webhook_token"
+    t.datetime "last_used_at"
+    t.boolean "private"
+    t.string "source_type"
+    t.index ["pipeline_id"], name: "index_sources_on_pipeline_id"
+    t.index ["user_id"], name: "index_sources_on_user_id"
+  end
+
+  create_table "unprocessed_events", force: :cascade do |t|
+    t.string "remote_ip"
+    t.json "payload"
+    t.string "stream_status"
+    t.bigint "source_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["source_id"], name: "index_unprocessed_events_on_source_id"
   end
 
   create_table "user_connected_accounts", force: :cascade do |t|
@@ -243,5 +327,15 @@ ActiveRecord::Schema.define(version: 2021_01_15_211740) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "event_fields", "field_sets"
+  add_foreign_key "field_sets", "sources"
+  add_foreign_key "leads", "accounts"
+  add_foreign_key "leads", "sources"
+  add_foreign_key "leads", "users"
+  add_foreign_key "pipelines", "accounts"
+  add_foreign_key "pipelines", "users"
+  add_foreign_key "sources", "pipelines"
+  add_foreign_key "sources", "users"
+  add_foreign_key "unprocessed_events", "sources"
   add_foreign_key "user_connected_accounts", "users"
 end

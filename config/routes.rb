@@ -1,5 +1,16 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  resources :leads
+  
+  resources :pipelines do
+    resources :sources do 
+      resources :leads
+      resources :field_set do 
+        resources :event_fields
+      end
+      post 'restream'
+    end 
+  end
   # Jumpstart views
   if Rails.env.development? || Rails.env.test?
     mount Jumpstart::Engine, at: "/jumpstart"
@@ -36,8 +47,20 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :auth
       resource :me, controller: :me
-      resources :accounts
+      resources :accounts 
+      resources :pipelines do
+        resources :sources do 
+          resources :leads
+        end 
+      end
       resources :users
+    end
+  end
+
+  # Webhook routes
+  namespace :rest do
+    constraints subdomain: 'sources', defaults: { format: :json } do 
+      post '/:webhook_token' => 'source_webhooks#input', as: :source_webhook
     end
   end
 

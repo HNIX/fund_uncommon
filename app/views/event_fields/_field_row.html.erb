@@ -1,0 +1,53 @@
+<div id="<%= dom_id(field) %>" class="overflow-hidden divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-12 sm:gap-px sm:grid-flow-col auto-col-auto" data-controller="inline-edit">
+    <div class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      <% if field.has_mapping_errors? %> 
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      <% elsif field.has_type_errors? %>     
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      <% else %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      <% end %>
+    </div>
+    <div class="col-span-5 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+      <div class="flex justify-start">
+        <% if field.sub_fields.present? %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" data-target="nested.open" data-action="click->nested#toggle">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" data-target="nested.close" data-action="click->nested#toggle">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        <% end %>
+        <span>
+            <%= field.field_name %> <small class="ml-2">(<%= field.data_type %>)</small>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-span-5 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500" data-target="inline-edit.field">
+      <% unless field.data_type == "parent" %>
+        <%= field.target_field_name %> <% if field.target_field_name.present? %><small class="ml-2">(<%= field.target_data_type %>)</small><% end %>
+      <% end %>
+    </div>
+    <% unless field.data_type == "parent" %>
+      <%= render "event_fields/target_field_form", field: field, source: source %>
+    <% end %>
+
+    <% if field.data_type == "parent" %>
+        <div class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+        </div>
+    <% else %>
+        <div class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500" data-target="inline-edit.button">
+          <span class="text-indigo-600 hover:text-indigo-900" data-action="click->inline-edit#toggle">Map</span>
+        </div>
+        <div class="hidden px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 relative bg-white group " data-target="inline-edit.submit">
+          <input class="text-indigo-600 hover:text-indigo-900 bg-white" type="submit" value="Save" form="event-field-form-<%= field.id %>">
+        </div>
+    <% end %>
+</div>
